@@ -18,6 +18,7 @@ export class TimeTimerKnob extends React.Component<ITimeTimerKnobProps, ITimeTim
         };
     }
 
+    // TODO: make rotation happen for knob
     public handleRotate() {
 
     }
@@ -26,13 +27,14 @@ export class TimeTimerKnob extends React.Component<ITimeTimerKnobProps, ITimeTim
         const canvas = this.canvasElem.current as HTMLCanvasElement;
         const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
         ctx.beginPath();
-        ctx.lineWidth = 10;
+        ctx.lineWidth = 5;
         ctx.lineCap = "round";
         ctx.moveTo(250 / 2, 250 / 2);
-        ctx.lineTo(0, 10);
+        ctx.lineTo(10, 10);
         ctx.stroke();
         ctx.rotate(30)
     }
+
     public componentDidMount() {
         this.drawCanvas()
     }
