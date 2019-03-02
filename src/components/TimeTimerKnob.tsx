@@ -9,10 +9,10 @@ interface ITimeTimerKnobState {
 
 export class TimeTimerKnob extends React.Component<ITimeTimerKnobProps, ITimeTimerKnobState> {
     public readonly state: ITimeTimerKnobState;
-    private canvasElem: React.RefObject<HTMLCanvasElement>;
+    private canvas: React.RefObject<HTMLCanvasElement>;
     constructor(props: ITimeTimerKnobProps) {
         super(props);
-        this.canvasElem = React.createRef();
+        this.canvas = React.createRef();
         this.state = {
             angle: 0,
         };
@@ -23,16 +23,24 @@ export class TimeTimerKnob extends React.Component<ITimeTimerKnobProps, ITimeTim
 
     }
 
+    public handleTouchStart(e: React.MouseEvent<HTMLCanvasElement, MouseEvent>) {
+        e.preventDefault()
+        console.log('touch start')
+    }
+
     public drawCanvas() {
-        const canvas = this.canvasElem.current as HTMLCanvasElement;
+        const canvas = this.canvas.current as HTMLCanvasElement;
         const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+        const radius = canvas.height;
+        // draw needle
         ctx.beginPath();
-        ctx.lineWidth = 5;
+        ctx.lineWidth = radius * 0.07;
         ctx.lineCap = "round";
-        ctx.moveTo(250 / 2, 250 / 2);
-        ctx.lineTo(10, 10);
+        ctx.moveTo(0, 0);
+        ctx.rotate(0);
+        ctx.lineTo(0, -radius * 0.5);
         ctx.stroke();
-        ctx.rotate(30)
+        ctx.rotate(-0);
     }
 
     public componentDidMount() {
@@ -41,9 +49,9 @@ export class TimeTimerKnob extends React.Component<ITimeTimerKnobProps, ITimeTim
 
     public render() {
         return (
-            <div>
-                <canvas ref={this.canvasElem} width={250} height={250} />
-            </div>
+
+            <canvas className="tt-knob" ref={this.canvas} width={50} height={50} onMouseDown={this.handleTouchStart} />
+
         );
     }
 }

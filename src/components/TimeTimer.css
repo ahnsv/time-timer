@@ -1,0 +1,24 @@
+.tt-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.tt-indicator, .tt-vis, .tt-knob { 
+    position: absolute;
+}
+
+
+.tt-indicator {
+    z-index: 1;
+}
+
+.tt-vis {
+    z-index: 2;
+    border-radius: 10px;
+    background: darksalmon;
+}
+
+.tt-knob {
+    z-index: 3;
+}

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { TimeTimerKnob } from './TimeTimerKnob'
 
 interface ITimeTimerVisualizerProps {
 }
@@ -17,31 +18,25 @@ export class TimeTimerVisualizer extends React.Component<ITimeTimerVisualizerPro
     }
 
     public componentDidMount() {
-        this.roundRect();
+        this.drawCircle();
     }
 
     public render() {
         return (
-            <div>
-                <canvas ref={this.canvas} width={250} height={250} />
-            </div>
+            <canvas className="tt-vis" ref={this.canvas} width={250} height={250}>
+                <TimeTimerKnob />
+            </canvas>
         );
     }
 
     // TODO: Draw a rounded rectangular for time timer
-    private roundRect() {
+    private drawCircle() {
         const canvas = this.canvas.current as HTMLCanvasElement;
         const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-        ctx.beginPath();
-        ctx.moveTo(5 + 0, 5);
-        ctx.lineTo(5 + 50 - 0, 5);
-        ctx.quadraticCurveTo(5 + 50, 5, 5 + 50, 5 + 0);
-        ctx.lineTo(5 + 50, 5 + 50 - 0);
-        ctx.quadraticCurveTo(5 + 50, 5 + 50, 5 + 50 - 0, 5 + 50);
-        ctx.lineTo(5 + 0, 5 + 50);
-        ctx.quadraticCurveTo(5, 5 + 50, 5, 5 + 50 - 0);
-        ctx.lineTo(5, 5 + 0);
-        ctx.quadraticCurveTo(5, 5, 5 + 0, 5);
-        ctx.closePath();
+        const radius = canvas.height / 2
+        ctx.translate(radius, radius);
+        ctx.arc(0, 0, radius * 0.95, 0, 2 * Math.PI);
+        ctx.fillStyle = "white";
+        ctx.fill();
     }
 }
